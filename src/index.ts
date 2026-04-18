@@ -13,9 +13,9 @@ const ProductReviewSchema = z.object({
     recommendation_text: z.string()
 });
 
-export const structuredScoutFlow = ai.defineFlow(
+export const basicScoutFlow = ai.defineFlow(
     {
-        name: 'structuredScoutFlow',
+        name: 'basicScoutFlow',
         inputSchema: z.string(),
         outputSchema: ProductReviewSchema,
     },
