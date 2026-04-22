@@ -6,70 +6,70 @@
 ![Node.js](https://img.shields.io/badge/Node.js-v20%2B-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge)
 
-Código fuente del workshop **Build Your First AI Agent with Genkit**, un codelab práctico (~90 min) donde construirás un **Smart Retail assistant** capaz de razonar, consultar APIs en tiempo real y aplicar reglas de negocio, usando [Firebase Genkit](https://firebase.google.com/docs/genkit) y [Gemini 2.5 Flash](https://deepmind.google/technologies/gemini/), desplegado en [Cloud Functions](https://firebase.google.com/docs/functions).
+Source code for the **Build Your First AI Agent with Genkit** workshop, a hands-on codelab (~90 min) where you'll build a **Smart Retail assistant** capable of reasoning, querying real-time APIs, and applying business rules, using [Firebase Genkit](https://firebase.google.com/docs/genkit) and [Gemini 2.5 Flash](https://deepmind.google/technologies/gemini/), deployed on [Cloud Functions](https://firebase.google.com/docs/functions).
 
-📖 **Sigue el codelab completo en**: [workshop-genkit-agents-101.lperezp.dev](https://workshop-genkit-agents-101.lperezp.dev/)
+📖 **Follow the full codelab at**: [workshop-genkit-agents-101.lperezp.dev](https://workshop-genkit-agents-101.lperezp.dev/)
 
-## Qué construirás
+## What you'll build
 
-Un asistente inteligente de compras que:
+An intelligent shopping assistant that:
 
-- Entiende las necesidades del usuario mediante lenguaje natural
-- Consulta en tiempo real un catálogo de productos
-- Valida automáticamente si un producto cumple con estándares de calidad y disponibilidad
-- Responde con datos estructurados listos para ser consumidos por una aplicación web
+- Understands user needs through natural language
+- Queries a product catalog in real time
+- Automatically validates whether a product meets quality and availability standards
+- Responds with structured data ready to be consumed by a web application
 
 ## Firebase Genkit Integration
 
 ### Core AI Capabilities
 
-Este proyecto demuestra tres niveles de complejidad progresiva con **Firebase Genkit**:
+This project demonstrates three levels of progressive complexity with **Firebase Genkit**:
 
-#### **Flujos implementados**
+#### **Implemented flows**
 
-- **`basicScoutFlow`** _(solo local)_: Generación pura sin herramientas — el modelo responde únicamente con su conocimiento interno
-- **`agentFlow`** _(solo local)_: Agente con tool calling hacia la API de productos; el modelo decide cuándo invocar la herramienta
-- **`guardedScoutFlow`** _(local + Firebase)_: Agente con regla de sistema que añade un campo `warning` si el rating del producto es menor a 3.0
-- **`generateGuardedScoutFlow`** _(solo Firebase)_: Wrapper como Firebase Callable Function (`onCallGenkit`) para consumo desde clientes web/móvil
+- **`basicScoutFlow`** _(local only)_: Pure generation without tools — the model responds solely from its internal knowledge
+- **`agentFlow`** _(local only)_: Agent with tool calling to the products API; the model decides when to invoke the tool
+- **`guardedScoutFlow`** _(local + Firebase)_: Agent with a system rule that adds a `warning` field if the product rating is below 3.0
+- **`generateGuardedScoutFlow`** _(Firebase only)_: Wrapper as a Firebase Callable Function (`onCallGenkit`) for consumption from web/mobile clients
 
 #### **Technical Implementation**
 
-- **Tool Calling**: `searchProductTool` consulta [dummyjson.com](https://dummyjson.com) como catálogo simulado de "GenkitStore"
-- **Firebase Secret Manager**: La `GOOGLE_GENAI_API_KEY` se gestiona como secreto en producción
-- **Cloud Functions Deployment**: Escalado serverless con endpoint HTTPS automático
-- **CORS Support**: Requests cross-origin para integración con frontend
+- **Tool Calling**: `searchProductTool` queries [dummyjson.com](https://dummyjson.com) as a simulated "GenkitStore" catalog
+- **Firebase Secret Manager**: The `GOOGLE_GENAI_API_KEY` is managed as a secret in production
+- **Cloud Functions Deployment**: Serverless scaling with automatic HTTPS endpoint
+- **CORS Support**: Cross-origin requests for frontend integration
 
 
-## Estructura del proyecto
+## Project structure
 
 ```
 workshop-genkit-agents/
-├── firebase.json           # Configuración de Firebase (Functions)
-├── package.json            # Dependencias locales (genkit, tsx, typescript)
-├── tsconfig.json           # Configuración TypeScript raíz (ESNext, NodeNext)
+├── firebase.json           # Firebase configuration (Functions)
+├── package.json            # Local dependencies (genkit, tsx, typescript)
+├── tsconfig.json           # Root TypeScript configuration (ESNext, NodeNext)
 ├── src/
-│   └── index.ts            # Flujos locales: basicScoutFlow, agentFlow, guardedScoutFlow
+│   └── index.ts            # Local flows: basicScoutFlow, agentFlow, guardedScoutFlow
 └── functions/
-    ├── package.json        # Dependencias Functions (firebase-admin, firebase-functions, genkit)
-    ├── tsconfig.json       # Configuración TypeScript para Functions
+    ├── package.json        # Functions dependencies (firebase-admin, firebase-functions, genkit)
+    ├── tsconfig.json       # TypeScript configuration for Functions
     └── src/
         └── index.ts        # guardedScoutFlow + generateGuardedScoutFlow (Callable)
 ```
 
-- **`src/`**: entorno de desarrollo local con todos los flujos para experimentar
-- **`functions/`**: entorno de producción, expone solo `guardedScoutFlow` como Callable Function
+- **`src/`**: local development environment with all flows to experiment with
+- **`functions/`**: production environment, exposes only `guardedScoutFlow` as a Callable Function
 
-## Instalación
+## Installation
 
-Para configurar el proyecto, sigue estos pasos:
+To set up the project, follow these steps:
 
-### Prerequisitos
+### Prerequisites
 
-- Node.js (v20 o superior)
+- Node.js (v20 or higher)
 - Firebase CLI (`npm install -g firebase-tools`)
-- API Key de Gemini habilitada en [Google AI Studio](https://aistudio.google.com/app/apikey)
+- Gemini API Key enabled at [Google AI Studio](https://aistudio.google.com/app/apikey)
 
-### Entorno local
+### Local environment
 
 ```bash
 npm install
@@ -82,59 +82,59 @@ cd functions
 npm install
 ```
 
-### Variables de entorno
+### Environment variables
 
-Crea un archivo `.env` en la raíz con:
+Create a `.env` file at the root with:
 
 ```env
-GOOGLE_GENAI_API_KEY=tu_api_key_aqui
+GOOGLE_GENAI_API_KEY=your_api_key_here
 ```
 
-Para producción, la API key se gestiona como secreto de Firebase:
+For production, the API key is managed as a Firebase secret:
 
 ```bash
 firebase functions:secrets:set GOOGLE_GENAI_API_KEY
 ```
 
-## Uso
+## Usage
 
-### Ejecutar un flujo directamente
+### Run a flow directly
 
 ```bash
 npx tsx src/index.ts
 ```
 
-### Firebase Functions (emulador local)
+### Firebase Functions (local emulator)
 
 ```bash
 cd functions
 npm run serve
 ```
 
-### Despliegue a producción
+### Deploy to production
 
 ```bash
 firebase deploy --only functions
 ```
 
-El `predeploy` configurado en `firebase.json` ejecuta `tsc` automáticamente antes del despliegue.
+The `predeploy` configured in `firebase.json` runs `tsc` automatically before deployment.
 
 ## Genkit Dev UI
 
-Genkit incluye una interfaz de desarrollo para probar y depurar los flujos visualmente:
+Genkit includes a development UI to visually test and debug flows:
 
-### Prerequisitos
+### Prerequisites
 
-1. Genera una API Key en [Google AI Studio](https://aistudio.google.com/app/apikey)
-2. Crea el archivo `.env` en la raíz con `GOOGLE_GENAI_API_KEY=tu_api_key`
+1. Generate an API Key at [Google AI Studio](https://aistudio.google.com/app/apikey)
+2. Create the `.env` file at the root with `GOOGLE_GENAI_API_KEY=your_api_key`
 
-### Iniciar la Dev UI
+### Start the Dev UI
 
 ```bash
 npx genkit start -- npx tsx src/index.ts
 ```
 
-Accede a `http://localhost:4000`.
+Go to `http://localhost:4000`.
 
 ## Contributing
 
@@ -156,4 +156,4 @@ This project is licensed under the [Apache License 2.0](LICENSE). You can use, m
 
 - [Luis Eduardo](https://lperezp.dev/?utm_source=workshop-genkit-agents&utm_medium=readme&utm_campaign=workshop-genkit-agents&utm_id=github)
 
-**¿Te fue útil el workshop? Dale una estrella al repositorio ⭐ ⬆️.**
+**Did you find the workshop useful? Give the repository a star ⭐ ⬆️.**
