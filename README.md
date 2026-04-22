@@ -1,9 +1,9 @@
 # Build Your First AI Agent with Genkit
 
 ![Firebase Genkit](https://img.shields.io/badge/Firebase-Genkit-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
-![Gemini](https://img.shields.io/badge/Gemini-2.5_Flash-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![Gemini](https://img.shields.io/badge/Gemini_2.5_Flash-4285F4?style=for-the-badge&logo=googlegemini&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-v20+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-v20%2B-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge)
 
 Código fuente del workshop **Build Your First AI Agent with Genkit**, un codelab práctico (~90 min) donde construirás un **Smart Retail assistant** capaz de razonar, consultar APIs en tiempo real y aplicar reglas de negocio, usando [Firebase Genkit](https://firebase.google.com/docs/genkit) y [Gemini 2.5 Flash](https://deepmind.google/technologies/gemini/), desplegado en [Cloud Functions](https://firebase.google.com/docs/functions).
