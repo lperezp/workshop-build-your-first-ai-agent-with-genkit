@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "skipLibCheck": true,
-    "module": "NodeNext",
+    "module": "commonjs",
     "esModuleInterop": true,
-    "moduleResolution": "nodenext",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "outDir": "lib",
